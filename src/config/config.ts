@@ -4,7 +4,16 @@ conf();
 
 const _config ={
 
-    port:process.env.PORT,
+    port: process.env.PORT,
+    databaseUrl: process.env.MONGODB_URL_LOCAL,
+    env: process.env.NODE_ENV,
+    jwtSecret:process.env.JWT_SECRET,
+    cloudinary_cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinary_api_key:process.env.CLOUDINARY_API_KEY,
+    cloudinary_api_secret:process.env.CLOUDINARY_API_SECRET,
+    frontendDomain:process.env.FRONTEND_DOMAIN
+
 }
 
 export const config = Object.freeze(_config);
+
