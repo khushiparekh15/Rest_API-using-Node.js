@@ -28,20 +28,13 @@ const registerController = async (
       return next(error);
     }
 
-    //   if user not exixsts then we need to store into the database
-    // we need to store passwords in hash bcrypt form
-
-    const hashPassword = await bcrypt.hash(password, 10); // there are 2 parameters in hash 1st name of property and 2nd is saltOnRounds  more detail on line No. 269
-
-    //  now we are ready to store into the database
-
+   
+    const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await userModel.create({
       name,
       email,
       password: hashPassword,
     });
-
-    // now one more thing when we are creating user we need to attach one more thing called jwt json web token for security purpose
 
     const token = sign({ sub: newUser._id }, config.jwtSecret as string, {
       expiresIn: "7d",
@@ -49,16 +42,7 @@ const registerController = async (
 
     res.status(201).json({ accessToken: token });
 
-    // if (newUser) {
-    //     res.status(201).json({
-    //         _id: newUser._id,
-    //         name: newUser.name,
-    //         email: newUser.email,
-    //     })
-    // } else {
-    //     const error = createHttpError(400, "Invalid Credentials");
-    //     return next(error);
-    // }
+
   } catch (error) {
     return next(createHttpError(500, "Error while getting user"));
   }

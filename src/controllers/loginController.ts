@@ -32,7 +32,6 @@ const loginController = async (
         return next(createHttpError(400,'email or password incorrect'))
     } 
 
-    // after this we need to create another access token
     const token = sign({ sub: user._id }, config.jwtSecret as string, {
         expiresIn: "7d",
       });
@@ -41,9 +40,7 @@ const loginController = async (
 
   } catch (error) {
     return next(createHttpError(500, "Error while login user"));
-  }
-
- 
+  } 
 };
 
 export default loginController;
